@@ -2,6 +2,6 @@
 Exemplo de geração e verificação de certificado digital para um arquivo.
 
 ##Requirememts
-'''sh
+```sh
 $ pip install pycrypto
-'''
+```
