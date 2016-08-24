@@ -15,6 +15,7 @@ def calculate_sha256(arq):
 	            break
 	        sha256.update(data)
 	return sha256.hexdigest()
+
 random_generator = Random.new().read
 key = RSA.generate(2048, random_generator)
 
@@ -29,6 +30,8 @@ print (raw_input('Pausa para modificar o arquivo - Tecle enter para continuar'))
 ##Decriptando o hash e verificando se ele bate com o arquivo
 dec_file_hash = key.decrypt(enc_file_hash)
 file_hash = calculate_sha256("arquivo.txt")
+
+##Verificando se o hash enviado confere com o gerado
 if(dec_file_hash == file_hash):
 	print ("O arquivo esta integro!")
 else:
