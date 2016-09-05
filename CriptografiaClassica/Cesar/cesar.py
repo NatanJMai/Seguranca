@@ -1,23 +1,35 @@
-def encrypt(text, key):
-	t = ""
-	for i in range(0, len(texto)):
-		t += chr((ord(text[i])+key)%256)
-	return t
+import sys
 
-def decrypt(text, key):
-	t = ""
-	for i in range(0, len(texto)):
-		t += chr((ord(text[i])-key)%256)
-	return t
+def encrypt(content, key):
+	return (bytes((i + key) % 256 for i in content))
 
-chave = 7
+def decrypt(enc_content, key):
+	return (bytes((i - key) % 256 for i in enc_content))
 
-texto = "Um texto qualquer"
+def usage():
+	print("Como usar:")
+	print("python "+__file__+" <caminho para o arquivo> <chave>")
+	sys.exit()
 
-texto_cript = encrypt(texto, chave)
-print ("Texto criptografado:")
-print (texto_cript)
+try:
+	arq_name = sys.argv[1]
+	chave = int(sys.argv[2])
+except:
+	usage()
 
-testo_decript = decrypt(texto_cript, chave)
-print ("Texto decriptografado:")
-print (testo_decript)
+arq = open(arq_name, 'rb')
+arq_content = arq.read()
+arq.close()
+
+enc_content = encrypt(arq_content, chave)
+enc_arq = open("c-cesar"+str(chave), 'wb')
+enc_arq.write(enc_content)
+enc_arq.close()
+
+dec_content = decrypt(enc_content, chave)
+dec_arq = open("d-cesar"+str(chave), 'wb')
+dec_arq.write(dec_content)
+dec_arq.close()
+
+print ("Arquivo criptografado salvo!")
+print ("Arquivo decriptografado salvo!")
