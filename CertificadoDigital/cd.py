@@ -23,13 +23,13 @@ public_key = key.publickey()
 
 ##Criando o hash do arquivo e encriptando o hash
 file_hash = calculate_sha256("arquivo.txt")
-enc_file_hash = public_key.encrypt(file_hash, 32)
+enc_file_hash = public_key.encrypt(file_hash.encode(encoding='UTF-8'), 32)
 
-print (raw_input('Pausa para modificar o arquivo - Tecle enter para continuar'))
+print (input('Pausa para modificar o arquivo - Tecle enter para continuar'))
 
 ##Decriptando o hash e verificando se ele bate com o arquivo
 dec_file_hash = key.decrypt(enc_file_hash)
-file_hash = calculate_sha256("arquivo.txt")
+file_hash = calculate_sha256("arquivo.txt").encode(encoding='UTF-8')
 
 ##Verificando se o hash enviado confere com o gerado
 if(dec_file_hash == file_hash):
